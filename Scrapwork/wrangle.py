@@ -162,3 +162,18 @@ def twins_raw_data():
         print("'INSIGHT_TWINS_RAW.csv' created.")
         
     return df
+
+##################################### Prepare the Data ##############################################
+
+def prepare_TWINS():
+    # Read in data and drop unneeded columns
+    df = pd.read_csv('MVP2.csv').reset_index(drop=True)
+    df = df.drop(columns=['Unnamed: 0', 'local_true_solar_time'])
+
+    # Converting earth_date to datetime dtype
+    df.earth_date = pd.to_datetime(df.earth_date, format = '%Y-%m-%d %H:%M:%S')
+
+    # Setting the 'earth_date' column as the Index and sorting that new Index:
+    df = df.set_index('earth_date').sort_index()
+    
+    return df
